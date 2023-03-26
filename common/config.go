@@ -7,6 +7,8 @@ var (
 	Port     int
 	Method   string
 	Code     string
+	DBname   string
+	File     string
 	Help     bool
 )
 

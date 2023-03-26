@@ -13,5 +13,6 @@ func Flag() {
 	flag.StringVar(&Path, "pt", "/var/www/html/", "path")
 	flag.StringVar(&Wshell, "ws", "", "ws 反弹shell的ip")
 	flag.StringVar(&Wport, "wp", "", "wp 反弹shell的端口")
+	flag.StringVar(&File, "f", "", "filename")
 	flag.Parse()
 }

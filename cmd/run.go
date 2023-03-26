@@ -14,8 +14,12 @@ func Parse() {
 		case "redis":
 			common.Port = 6379
 			Codes()
+		case "mysql":
+			common.Port = 3306
+			mysqlcmd()
 		}
 	}
+
 	if common.Redis != "" {
 		switch common.Redis {
 		case "wk":

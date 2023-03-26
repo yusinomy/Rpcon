@@ -2,7 +2,12 @@ module Rpcon
 
 go 1.17
 
-require golang.org/x/crypto v0.7.0
+require (
+	github.com/go-sql-driver/mysql v1.7.0
+	github.com/jmoiron/sqlx v1.3.5
+	golang.org/x/crypto v0.7.0
+	golang.org/x/net v0.8.0
+)
 
 require (
 	github.com/go-redis/redis/v8 v8.11.5
