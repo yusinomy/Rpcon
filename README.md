@@ -7,5 +7,8 @@ redis远程连接执行命令 redis一键写入webshell，一键反弹shell，�
 
 mysql远程连接执行命令 mysql一键写入webshell 
 
-后续更新：
 wmiexec无回显命令执行
+
+后续更新：
+
+mssql模块

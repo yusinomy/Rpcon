@@ -8,6 +8,8 @@ func Flag() {
 	flag.StringVar(&User, "u", "", "user | root")
 	flag.StringVar(&Password, "pw", "", "password | rpcon -h 192.168.1.1 -p 22 -u root -pw root")
 	flag.StringVar(&Code, "c", "", "code | rpcon -h 192.168.1.1 -p 22 -u root -pw root -c whoami\nfor redis\n -c wk write key\n -c wshell write webshell\n -c shell -ws 192.168.1.1 -wp 666")
+	flag.StringVar(&Domain, "domain", "", "")
+	flag.StringVar(&Hash, "hash", "", "")
 	flag.StringVar(&Method, "m", "", "method | rpcon -h 192.168.1.1:22 -u root -p root -m ssh -c id")
 	flag.StringVar(&Redis, "r", "", "redis shell | -r id | -r ws")
 	flag.StringVar(&Path, "pt", "/var/www/html/", "path")

@@ -10,6 +10,9 @@ var (
 	DBname   string
 	File     string
 	Help     bool
+	Hash     string
+	Domain   string
+	Timeout  int64 = 3
 )
 
 var (

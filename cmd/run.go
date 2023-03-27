@@ -17,6 +17,9 @@ func Parse() {
 		case "mysql":
 			common.Port = 3306
 			mysqlcmd()
+		case "wmi":
+			common.Port = 135
+			WmiExec()
 		}
 	}
 
