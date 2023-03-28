@@ -11,7 +11,7 @@ func Flag() {
 	flag.StringVar(&Domain, "domain", "", "")
 	flag.StringVar(&Hash, "hash", "", "")
 	flag.StringVar(&Method, "m", "", "method | rpcon -h 192.168.1.1:22 -u root -p root -m ssh -c id")
-	flag.StringVar(&Redis, "r", "", "redis shell | -r id | -r ws")
+	flag.StringVar(&Redis, "r", "", "sql shell | -r rk | -r rs")
 	flag.StringVar(&Path, "pt", "/var/www/html/", "path")
 	flag.StringVar(&Wshell, "ws", "", "ws 反弹shell的ip")
 	flag.StringVar(&Wport, "wp", "", "wp 反弹shell的端口")

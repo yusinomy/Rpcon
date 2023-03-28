@@ -16,21 +16,24 @@ func Parse() {
 			Codes()
 		case "mysql":
 			common.Port = 3306
-			mysqlcmd()
+			Query()
 		case "wmi":
 			common.Port = 135
 			WmiExec()
 		}
 	}
-
 	if common.Redis != "" {
 		switch common.Redis {
-		case "wk":
+		case "rk":
 			Wkey()
-		case "wshell":
+		case "rs":
 			Wshell()
-		case "shell":
+		case "rn":
 			ncshell()
+		case "ms":
+			Mysqlshell()
+		case "mg":
+			Myconfig()
 		}
 	} else {
 		con()

