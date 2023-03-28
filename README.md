@@ -19,6 +19,20 @@ wmiexec无回显命令执行
 
 优化某些代码
 
+mssql模块
+
+1：xcmdhshell 一键利用
+
+2：OLE一键利用
+
 后续更新：
 
-mssql模块
+Oracle
+
+Postgersql
+
+redis主从辅助
+
+smb
+
+mysql udf提权
