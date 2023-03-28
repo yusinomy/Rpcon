@@ -17,6 +17,9 @@ func Parse() {
 		case "mysql":
 			common.Port = 3306
 			Query()
+		case "mssql":
+			common.Port = 1433
+			Mssquery()
 		case "wmi":
 			common.Port = 135
 			WmiExec()
@@ -34,6 +37,12 @@ func Parse() {
 			Mysqlshell()
 		case "mg":
 			Myconfig()
+		case "msg":
+			Msscfg()
+		case "xcmd":
+			Cmdshell()
+		case "xol":
+			Oleshell()
 		}
 	} else {
 		con()
