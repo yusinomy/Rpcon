@@ -25,9 +25,11 @@ mssql模块
 
 2：OLE一键利用
 
-后续更新：
+## 2023.3.29更新：
 
-Oracle
+oracle利用模块：shellrun函数执行系统命令
+
+## 后续更新：
 
 Postgersql
 

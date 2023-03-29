@@ -9,17 +9,15 @@ func Parse() {
 	if common.Method != "" {
 		switch common.Method {
 		case "ssh":
-			common.Port = 22
 			Sshcmd()
 		case "redis":
-			common.Port = 6379
 			Codes()
 		case "mysql":
-			common.Port = 3306
 			Query()
 		case "mssql":
-			common.Port = 1433
 			Mssquery()
+		case "oracle":
+			ORquery()
 		case "wmi":
 			common.Port = 135
 			WmiExec()
@@ -43,6 +41,10 @@ func Parse() {
 			Cmdshell()
 		case "xol":
 			Oleshell()
+		case "rg":
+			ORcfg()
+		case "res":
+			ORacleshell()
 		}
 	} else {
 		con()
