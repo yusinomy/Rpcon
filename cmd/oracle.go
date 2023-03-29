@@ -12,12 +12,12 @@ import (
 
 //https://www.cnblogs.com/jiangyuqin/p/10135963.html
 var cfg = []string{
-	"SELECT * FROM session_privs;",
-	"SELECT * FROM session_privs;",
-	"SELECT banner FROM v$version WHERE banner LIKE 'Oracle%';",              //查询数据库版本信息
-	"SELECT banner FROM v$version where banner like 'TNS%';",                 //查询操作系统版本
-	"SELECT UTL_INADDR.get_host_name FROM dual;",                             //查询主机名
-	"SELECT DISTINCT grantee FROM dba_sys_privs WHERE ADMIN_OPTION = 'YES';", //查询所有dba用户
+	"SELECT * FROM session_privs;\n",
+	"SELECT * FROM session_privs;\n",
+	"SELECT banner FROM v$version WHERE banner LIKE 'Oracle%';\n",              //查询数据库版本信息
+	"SELECT banner FROM v$version where banner like 'TNS%';\n",                 //查询操作系统版本
+	"SELECT UTL_INADDR.get_host_name FROM dual;\n",                             //查询主机名
+	"SELECT DISTINCT grantee FROM dba_sys_privs WHERE ADMIN_OPTION = 'YES';\n", //查询所有dba用户
 }
 
 var exp = []string{
