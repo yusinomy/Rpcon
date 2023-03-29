@@ -29,6 +29,10 @@ mssql模块
 
 oracle利用模块：shellrun函数执行系统命令
 
+关于oracle模块报错
+
+参考下https://www.cnblogs.com/jiangyuqin/p/10135963.html
+
 ## 后续更新：
 
 Postgersql
