@@ -6,7 +6,6 @@ require (
 	github.com/C-Sto/goWMIExec v0.0.1-deva.0.20210704154847-b8ebd6464a06
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/go-sql-driver/mysql v1.7.0
-	github.com/mattn/go-oci8 v0.1.1
 	golang.org/x/crypto v0.7.0
 )
 
