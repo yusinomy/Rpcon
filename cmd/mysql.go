@@ -32,7 +32,10 @@ func mysqlcmd() (*sql.DB, error) {
 
 func Query() {
 
-	db, _ := mysqlcmd()
+	db, err := mysqlcmd()
+	if err != nil {
+		fmt.Println(err)
+	}
 	if common.Code != "" {
 		stmt, err := db.Prepare(common.Code)
 		if err != nil {
@@ -93,7 +96,10 @@ func Mysqlshell() {
 }
 
 func Myconfig() {
-	db, _ := mysqlcmd()
+	db, err := mysqlcmd()
+	if err != nil {
+		fmt.Println(err)
+	}
 	for i, _ := range mysqread {
 		stmt, err := db.Prepare(mysqread[i])
 		if err != nil {
@@ -125,4 +131,3 @@ func Myconfig() {
 	}
 	defer func() { db.Close() }()
 }
-

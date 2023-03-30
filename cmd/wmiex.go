@@ -13,6 +13,9 @@ var flag = false
 func WmiExec() (tmperr error) {
 	starttime := time.Now().Unix()
 	flag, err := pkg.Wmiexec()
+	if err != nil {
+		fmt.Println(err)
+	}
 	errlog := fmt.Sprintf("[-] WmiExec  %v:%v %v %v %v", common.Host, 445, common.User, common.Password, err)
 	errlog = strings.Replace(errlog, "\n", "", -1)
 	pkg.LogError(errlog)

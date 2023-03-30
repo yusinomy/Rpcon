@@ -57,7 +57,10 @@ func Powriteshell() {
 }
 
 func Pocode() {
-	conn, _ := Postconn()
+	conn, err := Postconn()
+	if err != nil {
+		fmt.Println(err)
+	}
 	//通过Statement执行查询
 	code := fmt.Sprintf("copy cmd_exec FROM PROGRAM '%s';", common.Code)
 	conn.Query("DROP TABLE IF EXISTS cmd_exec;")
@@ -89,7 +92,10 @@ func Pocode() {
 }
 
 func PoQuery() {
-	conn, _ := Postconn()
+	conn, err := Postconn()
+	if err != nil {
+		fmt.Println(err)
+	}
 	stmt, err := conn.Prepare(common.Code)
 	if err != nil {
 		log.Fatal("Prepare failed:", err.Error())
@@ -120,7 +126,10 @@ func PoQuery() {
 }
 
 func Pocfg() {
-	conn, _ := Postconn()
+	conn, err := Postconn()
+	if err != nil {
+		fmt.Println(err)
+	}
 	for i := range pocfg {
 		rows, err := conn.Query(pocfg[i])
 		if err != nil {
