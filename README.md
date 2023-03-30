@@ -37,11 +37,15 @@ oracle利用模块：shellrun函数执行系统命令
 
 暂时移除oracle 使用可以从cmd/oracle.go import包中去除//再按照上文参考配置
 
+Postgersql模块
+
+1：一键写入webshell
+
+2：命令执行
+
 ## 后续更新：
 
-Postgersql
-
-redis主从辅助
+redis主从复制
 
 smb
 

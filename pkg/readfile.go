@@ -13,5 +13,5 @@ func Readfile(filename string) (string, error) {
 		log.Println("打开文件失败")
 	}
 	s = fmt.Sprintf("%s", file)
-	return s,err
+	return s, err
 }

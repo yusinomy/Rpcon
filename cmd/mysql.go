@@ -6,7 +6,6 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"io/ioutil"
 	"log"
 )
 
@@ -69,7 +68,7 @@ func Query() {
 func Mysqlshell() {
 	db, err := mysqlcmd()
 	if common.File != "" {
-		key, err = Readfile(common.File)
+		key, err = pkg.Readfile(common.File)
 		if err != nil {
 			fmt.Println("打开文件失败")
 		}
@@ -127,12 +126,3 @@ func Myconfig() {
 	defer func() { db.Close() }()
 }
 
-func Readfile(filename string) (string, error) {
-	s := ""
-	file, err := ioutil.ReadFile(filename)
-	if err != nil {
-		log.Println("打开文件失败")
-	}
-	s = fmt.Sprintf("%s", file)
-	return s, err
-}

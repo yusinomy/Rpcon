@@ -39,12 +39,18 @@ func Parse() {
 			Msscfg()
 		case "xcmd":
 			Cmdshell()
-		//case "xol":
-			//Oleshell()
-		//case "rg":
-			//ORcfg()
-		//case "res":
-			//ORacleshell()
+		case "xol":
+			Oleshell()
+		case "rg":
+			ORcfg()
+		case "res":
+			ORacleshell()
+		case "pog":
+			Pocfg()
+		case "pos":
+			Powriteshell()
+		case "poc":
+			Pocode()
 		}
 	} else {
 		con()
