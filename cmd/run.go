@@ -20,6 +20,8 @@ func Parse() {
 			ORquery()
 		case "postgresql":
 			PoQuery()
+		case "smb":
+			Smb()
 		case "wmi":
 			common.Port = 135
 			WmiExec()

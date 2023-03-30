@@ -23,3 +23,13 @@ var (
 	Path   string
 	Wport  string
 )
+
+type ClientOption struct {
+	Host        string
+	Port        int
+	Workstation string
+	Domain      string
+	User        string
+	Password    string
+	Hash        string
+}
