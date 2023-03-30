@@ -33,6 +33,10 @@ oracle利用模块：shellrun函数执行系统命令
 
 参考下https://www.cnblogs.com/jiangyuqin/p/10135963.html
 
+## 2023.3.30更新：
+
+暂时移除oracle 使用可以从cmd/oracle.go import包中去除//再按照上文参考配置
+
 ## 后续更新：
 
 Postgersql
