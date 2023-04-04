@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/Amzza0x00/go-impacket v0.2.2
-	github.com/C-Sto/goWMIExec v0.0.1-deva.0.20210704154847-b8ebd6464a06
+	github.com/C-Sto/goWMIExec v0.0.1-deva
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/lib/pq v1.10.7
