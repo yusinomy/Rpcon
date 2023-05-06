@@ -36,11 +36,8 @@ func Msscon() (*sql.DB, error) {
 }
 
 func Mssquery() {
-	conn, err := Msscon()
-	if err != nil {
-		fmt.Println(err)
-	}
-	stmt, err := conn.Prepare(`SELECT SysObjects.name AS Tablename FROM sysobjects WHERE xtype = 'U' and sysstat<200`)
+	conn, _ := Msscon()
+	stmt, err := conn.Prepare(common.Code)
 	if err != nil {
 		log.Fatal("Prepare failed:", err.Error())
 	}
@@ -71,10 +68,7 @@ func Mssquery() {
 }
 
 func Msscfg() {
-	conn, err := Msscon()
-	if err != nil {
-		fmt.Println(err)
-	}
+	conn, _ := Msscon()
 	for i := range cfgquery {
 		stmt, err := conn.Prepare(cfgquery[i])
 		if err != nil {
@@ -182,10 +176,7 @@ func Oleshell() {
 }
 
 func CLR() {
-	conn, err := Msscon()
-	if err != nil {
-		fmt.Println(err)
-	}
+	conn, _ := Msscon()
 	conn.Query("exec sp_configure 'show advanced options',1;reconfigure;exec sp_configure 'Ole Automation Procedures',1;reconfigure;--")
 
 }

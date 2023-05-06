@@ -1,6 +1,6 @@
 module Rpcon
 
-go 1.17
+go 1.18
 
 require (
 	github.com/Amzza0x00/go-impacket v0.2.2
@@ -8,6 +8,7 @@ require (
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/lib/pq v1.10.7
+	github.com/sijms/go-ora/v2 v2.7.3
 	golang.org/x/crypto v0.7.0
 )
 
@@ -26,3 +27,5 @@ require (
 	go.uber.org/zap v1.24.0 // indirect
 	golang.org/x/text v0.8.0 // indirect
 )
+
+replace github.com/C-Sto/goWMIExec v0.0.1-deva.0.20210704154847-b8ebd6464a06 => github.com/shadow1ng/goWMIExec v0.0.2

@@ -16,5 +16,6 @@ func Flag() {
 	flag.StringVar(&Wshell, "ws", "", "ws 反弹shell的ip")
 	flag.StringVar(&Wport, "wp", "", "wp 反弹shell的端口")
 	flag.StringVar(&File, "f", "", "filename")
+	flag.StringVar(&DBname, "d", "", "数据库名称")
 	flag.Parse()
 }

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	_ "github.com/lib/pq"
 	"log"
+	"os"
 )
 
 var shell string
@@ -30,10 +31,12 @@ func Postconn() (*sql.DB, error) {
 	pdqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s", common.Host, common.Port, common.User, common.Password, common.DBname)
 	db, err := sql.Open("postgres", pdqlInfo)
 	if err != nil {
-		log.Fatal("Open Connection failed:", err.Error())
+		log.Println("Open Connection failed:", err.Error())
+		os.Exit(0)
 	}
-	db.SetMaxOpenConns(20) //设置数据库连接池最大连接数
-	db.SetMaxIdleConns(10) //设置最大空闲连接数
+	//db.SetMaxOpenConns(20) //设置数据库连接池最大连接数
+	//db.SetMaxIdleConns(10) //设置最大空闲连接数
+	//defer db.Close()
 	return db, err
 }
 
@@ -57,10 +60,7 @@ func Powriteshell() {
 }
 
 func Pocode() {
-	conn, err := Postconn()
-	if err != nil {
-		fmt.Println(err)
-	}
+	conn, _ := Postconn()
 	//通过Statement执行查询
 	code := fmt.Sprintf("copy cmd_exec FROM PROGRAM '%s';", common.Code)
 	conn.Query("DROP TABLE IF EXISTS cmd_exec;")
@@ -88,14 +88,12 @@ func Pocode() {
 		pkg.PrintRow(colsdata) //打印此行
 	}
 	defer rows.Close()
+	defer conn.Close()
 
 }
 
 func PoQuery() {
-	conn, err := Postconn()
-	if err != nil {
-		fmt.Println(err)
-	}
+	conn, _ := Postconn()
 	stmt, err := conn.Prepare(common.Code)
 	if err != nil {
 		log.Fatal("Prepare failed:", err.Error())
@@ -152,5 +150,6 @@ func Pocfg() {
 			pkg.PrintRow(colsdata) //打印此行
 		}
 		defer rows.Close()
+		defer conn.Close()
 	}
 }
