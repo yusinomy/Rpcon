@@ -24,7 +24,7 @@ var msexp = []string{
 }
 
 func Msscon() (*sql.DB, error) {
-	dns := fmt.Sprintf("server=%s;port%d;database=%s;user id=%s;password=%s", common.Host, common.Port, common.DBname, common.User, common.Password)
+	dns := fmt.Sprintf("server=%s;port%d;database=%s;user id=%s;password=%s;encrypt=disable", common.Host, common.Port, common.DBname, common.User, common.Password)
 	if isdebug {
 		fmt.Println(dns)
 	}
